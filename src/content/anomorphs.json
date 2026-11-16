@@ -1,0 +1,24 @@
+[
+  {
+    "id": "D-002",
+    "slug": "faithful-doll",
+    "name": "誠実な人形",
+    "model": "DEMONIC MODEL",
+    "rank": "Deyth",
+    "origin": "黄昏の扉",
+    "quote": "約束は、人の不幸から。",
+    "description": "少女の姿をしたアノモルフ。地面からわずかに浮遊し、静かにそこにいる。その手に生まれる黒い靄を、研究員たちは「誠実」と呼ぶ。",
+    "image": "/images/d-002-cutout.png"
+  },
+  {
+    "id": "R-001",
+    "slug": "mimi",
+    "name": "MIMI",
+    "model": "ROBOT MODEL",
+    "rank": "Orin",
+    "origin": "忘却の扉",
+    "quote": "救いは、考えていません。",
+    "description": "むき出しの配線と素朴なアームを備えたロボット。未知のエネルギーを生み出し続けるその仕組みは、いまだ解明されていない。",
+    "image": "/images/r-001.png"
+  }
+]
