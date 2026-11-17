@@ -1,0 +1,12 @@
+services:
+  web:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "${WEB_PORT:-3000}:3000"
+    stop_grace_period: 15s
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

@@ -57,3 +57,7 @@ Windows環境でTurbopackのCSS処理が停止したため、開発・本番ビ�
 Arcの一覧・詳細ページ、ニュース詳細、実際の配布、外部リンク、ページ間遷移演出は今後の段階です。
 
 参考: [Next.js](https://nextjs.org/docs/app/getting-started/installation)、[Tailwind CSS](https://tailwindcss.com/docs/installation/framework-guides/nextjs)、[Motionのアクセシビリティ](https://motion.dev/docs/react-accessibility)。
+
+## Deployment
+
+Docker / PM2: [docs/deployment.md](docs/deployment.md)
