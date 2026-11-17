@@ -2,7 +2,7 @@
   {
     "id": "R-001",
     "name": "MIMI",
-    "image": "/images/d-002-cutout.png",
+    "image": "/images/r-001.png",
     "phrase": "忘れるべきでした",
     "teaser": "どうして，人は争うのか？",
     "sample": true
@@ -10,7 +10,7 @@
   {
     "id": "D-002",
     "name": "誠実な人形",
-    "image": "/images/r-001.png",
+    "image": "/images/d-002-cutout.png",
     "phrase": "約束は人の不幸から",
     "teaser": "いつまでも続いている",
     "sample": true
