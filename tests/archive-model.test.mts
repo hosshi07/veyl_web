@@ -1,12 +1,105 @@
 import test from "node:test";
 import assert from "node:assert/strict";
 import {
+  advanceCoast,
+  releaseVelocity,
+  deckSlots,
+  paperPose,
+  shouldHandOffLeft,
+  canHoverCandidate,
+} from "../src/lib/archive-deck-motion.ts";
+import {
   archiveReducer,
   initialArchiveState,
   visibleIndices,
   wrapIndex,
   swipeDirection,
 } from "../src/lib/archive-model.ts";
+
+test("coasting decays in both directions and is independent of frame rate", () => {
+  const whole = advanceCoast(0, 10, 1);
+  let split = { position: 0, velocity: 10 };
+  for (let i = 0; i < 120; i++)
+    split = advanceCoast(split.position, split.velocity, 1 / 120);
+  assert.ok(Math.abs(split.position - whole.position) < 1e-10);
+  assert.ok(whole.velocity > 0 && whole.velocity < 1);
+  const reverse = advanceCoast(0, -10, 1);
+  assert.ok(Math.abs(reverse.position + whole.position) < 1e-10);
+});
+
+test("release speed uses recent movement, ignores a held pointer, and is bounded", () => {
+  assert.equal(
+    releaseVelocity(
+      [
+        { x: 100, time: 0 },
+        { x: 40, time: 100 },
+      ],
+      100,
+      60,
+    ),
+    10,
+  );
+  assert.equal(
+    releaseVelocity(
+      [
+        { x: 100, time: 0 },
+        { x: 40, time: 100 },
+        { x: 40, time: 300 },
+      ],
+      300,
+      60,
+    ),
+    0,
+  );
+  assert.equal(
+    releaseVelocity(
+      [
+        { x: 0, time: 0 },
+        { x: 2000, time: 20 },
+      ],
+      20,
+      60,
+    ),
+    -14,
+  );
+});
+
+test("continuous slots wrap with bounded rendering and preserve a paper across boundaries", () => {
+  const before = deckSlots(9999.9, 10000, 5);
+  const after = deckSlots(10000.1, 10000, 5);
+  assert.equal(before.length, 6);
+  assert.deepEqual(
+    before.slice(1).map((entry) => entry.slot),
+    after.slice(0, 5).map((entry) => entry.slot),
+  );
+  assert.equal(after[0].index, 0);
+  assert.equal(deckSlots(0, 0, 5).length, 0);
+});
+
+test("edge papers fade horizontally in the same direction without dropping down", () => {
+  const exitA = paperPose(-0.25, 5, 54, false);
+  const exitB = paperPose(-0.75, 5, 54, false);
+  assert.ok(exitB.x < exitA.x && exitB.opacity < exitA.opacity);
+  assert.equal(exitA.y, exitB.y);
+  const entryA = paperPose(4.75, 5, 54, false);
+  const entryB = paperPose(4.25, 5, 54, false);
+  assert.ok(entryB.x < entryA.x && entryB.opacity > entryA.opacity);
+  assert.equal(entryA.y, entryB.y);
+  assert.equal(paperPose(5, 5, 54, false).opacity, 0);
+});
+
+test("leftward hover hands off at the left half, not on rightward motion", () => {
+  assert.equal(shouldHandOffLeft(240, 260, 100, 300), true);
+  assert.equal(shouldHandOffLeft(260, 280, 100, 300), false);
+  assert.equal(shouldHandOffLeft(240, 220, 100, 300), false);
+});
+
+test("a still-overlapping paper cannot steal selection back against pointer direction", () => {
+  assert.equal(canHoverCandidate(4, 3, 580, 590), false);
+  assert.equal(canHoverCandidate(4, 3, 600, 590), true);
+  assert.equal(canHoverCandidate(2, 3, 580, 590), true);
+  assert.equal(canHoverCandidate(3, 3, 580, 590), false);
+});
 
 test("horizontal swipes rotate while taps and vertical page scrolling do not", () => {
   assert.equal(swipeDirection(-80, 10), 1);

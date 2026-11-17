@@ -124,6 +124,10 @@
 .archive-stage.is-dragging {
   border-color: #687b65;
 }
+.archive-stage:not(.has-open-record) {
+  /* Transparent edge papers must not create horizontal page scrolling. */
+  overflow-x: clip;
+}
 .archive-stage.is-dragging,
 .archive-stage.is-dragging * {
   cursor: grabbing !important;

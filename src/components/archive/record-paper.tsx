@@ -1,14 +1,16 @@
 "use client";
 import Image from "next/image";
-import { motion, useReducedMotion, useIsPresent } from "motion/react";
+import { motion, useReducedMotion } from "motion/react";
 import { useState, type CSSProperties, type MouseEvent } from "react";
 import { GateMark } from "@/components/ui/icon";
 import type { ArchiveRecord } from "@/lib/types";
 import type { ArchivePhase } from "@/lib/archive-model";
+import { paperPose } from "@/lib/archive-deck-motion";
 
 type PaperProps = {
   record: ArchiveRecord;
   rank: number;
+  slot: number;
   count: number;
   width: number;
   height: number;
@@ -17,8 +19,7 @@ type PaperProps = {
   preview: boolean;
   selected: boolean;
   dimmed: boolean;
-  dragging: boolean;
-  dragOffset: number;
+  moving: boolean;
   phase: ArchivePhase;
   target: { x: number; y: number; scale: number };
   onPreview: (id: string | null) => void;
@@ -67,6 +68,7 @@ export function RecordPaper(props: PaperProps) {
   const {
     record,
     rank,
+    slot,
     count,
     width,
     height,
@@ -75,8 +77,7 @@ export function RecordPaper(props: PaperProps) {
     preview,
     selected,
     dimmed,
-    dragging,
-    dragOffset,
+    moving,
     phase,
     target,
     onPreview,
@@ -85,12 +86,10 @@ export function RecordPaper(props: PaperProps) {
     onSettled,
   } = props;
   const reduced = useReducedMotion();
-  const present = useIsPresent();
-  const x = rank * step - ((count - 1) * step) / 2 - (compact ? 12 : 25);
-  const y = rank * -6;
-  const rotate = -3.5 + rank * 1.15;
+  const { x, y, rotate, opacity } = paperPose(rank, count, step, compact);
+  const interactive = opacity > 0.15 || selected;
   const resting = {
-    x: x + (preview ? -16 : 0) + dragOffset,
+    x: x + (preview ? -16 : 0),
     y: y - (preview ? 28 : 0),
     rotate: preview ? -1 : rotate,
     scale: preview ? 1.025 : 1,
@@ -104,7 +103,7 @@ export function RecordPaper(props: PaperProps) {
     rotate: number | (number | null)[];
     scale: number | (number | null)[];
     opacity: number;
-  } = { ...resting, opacity: dimmed ? 0.25 : 1 };
+  } = { ...resting, opacity: opacity * (dimmed ? 0.25 : 1) };
   if (selected) {
     animation = reduced
       ? { ...(closing ? { x, y, rotate, scale: 1 } : opened), opacity: 1 }
@@ -126,13 +125,13 @@ export function RecordPaper(props: PaperProps) {
             }
           : { ...opened, opacity: 1 };
   }
-  const duration = reduced || dragging ? 0 : opening || closing ? 0.82 : 0.28;
+  const duration = reduced || moving ? 0 : opening || closing ? 0.82 : 0.22;
   const style = {
     width,
     height,
     marginLeft: -width / 2,
     marginTop: -height / 2,
-    zIndex: selected ? 110 : preview ? 60 : 40 - rank,
+    zIndex: selected ? 110 : preview ? 60 : 40 - Math.round(Math.max(0, rank)),
     "--file-width": `${width}px`,
     "--tab-width": compact ? "40px" : "48px",
   } as CSSProperties;
@@ -140,23 +139,19 @@ export function RecordPaper(props: PaperProps) {
     <div
       className="file-slot"
       style={style}
-      inert={dimmed || !present || undefined}
+      inert={dimmed || !interactive || undefined}
+      aria-hidden={!interactive || undefined}
     >
       <motion.article
         className={`record-paper${preview ? " is-preview" : ""}${selected ? " is-selected" : ""}${closing ? " is-returning" : ""}`}
         data-record={record.id}
+        data-slot={slot}
         data-phase={selected ? phase : "idle"}
         role={selected ? "dialog" : undefined}
         aria-modal={selected ? true : undefined}
         aria-labelledby={selected ? `file-name-${record.id}` : undefined}
         initial={false}
         animate={animation}
-        exit={{
-          opacity: 0,
-          x: x - 50,
-          y: y + 35,
-          transition: { duration: reduced ? 0 : 0.2 },
-        }}
         transition={{
           duration,
           ease: [0.22, 0.68, 0.16, 1],
@@ -164,14 +159,6 @@ export function RecordPaper(props: PaperProps) {
         }}
         onAnimationComplete={() => {
           if (selected) onSettled(phase);
-        }}
-        onPointerEnter={(event) => {
-          if (event.pointerType === "mouse" && !compact && !dimmed)
-            onPreview(record.id);
-        }}
-        onPointerLeave={(event) => {
-          if (event.pointerType === "mouse" && !compact && !selected)
-            onPreview(null);
         }}
       >
         <div className="file-shape" />
@@ -224,13 +211,10 @@ export function RecordPaper(props: PaperProps) {
           aria-label={`資料 ${record.id} を${compact && !preview ? "プレビュー" : "開く"}${record.sample ? "（仮データ）" : ""}`}
           aria-haspopup="dialog"
           aria-expanded={selected}
-          disabled={selected || dimmed}
+          disabled={selected || dimmed || !interactive}
           onFocus={(event) => {
             if (event.currentTarget.matches(":focus-visible"))
               onPreview(record.id);
-          }}
-          onBlur={() => {
-            if (!selected) onPreview(null);
           }}
           onClick={(event) =>
             onSelect(record.id, isTouchSelection(event, compact))
@@ -244,7 +228,7 @@ export function RecordPaper(props: PaperProps) {
             className="file-face-trigger"
             tabIndex={-1}
             aria-hidden="true"
-            disabled={dimmed}
+            disabled={dimmed || !interactive}
             onClick={(event) =>
               onSelect(record.id, isTouchSelection(event, compact))
             }
