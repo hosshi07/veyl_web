@@ -1,4 +1,15 @@
 [
+    {
+    "id": "D-004",
+    "slug": "vampire",
+    "name": "ヴァレイン",
+    "model": "DEMONIC MODEL",
+    "rank": "Ulth",
+    "origin": "黄昏の扉",
+    "quote": "再び死の王がやってくる",
+    "description": "人間のような姿を黄昏の扉において恐れるべき魔人です．\n黄昏の扉の少し奥に位置しており，d004の周辺は赤い霧が発声していた．",
+    "image": "/images/d004.png"
+  },
   {
     "id": "D-002",
     "slug": "faithful-doll",
@@ -9,16 +20,5 @@
     "quote": "約束は、人の不幸から。",
     "description": "少女の姿をしたアノモルフ。地面からわずかに浮遊し、静かにそこにいる。その手に生まれる黒い靄を、研究員たちは「誠実」と呼ぶ。",
     "image": "/images/d-002-cutout.png"
-  },
-  {
-    "id": "R-001",
-    "slug": "mimi",
-    "name": "MIMI",
-    "model": "ROBOT MODEL",
-    "rank": "Orin",
-    "origin": "忘却の扉",
-    "quote": "救いは、考えていません。",
-    "description": "むき出しの配線と素朴なアームを備えたロボット。未知のエネルギーを生み出し続けるその仕組みは、いまだ解明されていない。",
-    "image": "/images/r-001.png"
   }
 ]

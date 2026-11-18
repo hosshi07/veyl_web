@@ -9,9 +9,9 @@ export function WorldSection() {
   return (
     <section id="world" className="section world-section">
       <SectionHeading
-        number="01"
+        number="02"
         label="WORLD"
-        title="世界の境界、その先へ。"
+        title="ようこそ、扉のある世界へ"
       />
       <div className="world-grid">
         <div className="world-visual">
@@ -47,15 +47,15 @@ export function ArchiveSection() {
   return (
     <section id="anomorphs" className="archive-section section">
       <SectionHeading
-        number="02"
+        number="03"
         label="ANOMORPHS"
-        title="理解不能。だから、観測する。"
+        title="アノモルフを発見"
       />
       <div className="section-intro">
         <p>
-          敵か、あるいは共存者か。
+          扉からやってきた謎の存在、アノモルフ
           <br />
-          扉の向こうから現れた存在の、断片的な記録。
+          新たなアノモルフを発見しました。直ちに確認してください。
         </p>
         <span className="archive-stamp mono">
           RESEARCH FILES <span>02</span>
@@ -95,7 +95,7 @@ export function ArchiveSection() {
         ))}
       </div>
       <p className="section-footnote mono">
-        ※ ビジュアル・設定は開発中のものです。研究記録は今後順次公開します。
+        収容、観測を行ってください。
       </p>
       <div className="home-archive-link">
         <Link href="/anomorphs" className="button">
@@ -111,9 +111,9 @@ export function ArcSection() {
   return (
     <section id="arc" className="arc-section section">
       <SectionHeading
-        number="03"
+        number="04"
         label="ARC / EQUIPMENT"
-        title="人類に残された、対抗手段。"
+        title="人類に残された対抗手段"
       />
       <div className="arc-grid">
         <div className="arc-copy">
@@ -150,9 +150,9 @@ export function NewsSection() {
   return (
     <section id="news" className="news-section section">
       <SectionHeading
-        number="04"
+        number="01"
         label="NEWS & UPDATES"
-        title="施設からのお知らせ。"
+        title="施設からのお知らせ"
       />
       <div className="news-list">
         {getNews().map((news) => (
@@ -186,7 +186,7 @@ export function DownloadSection() {
       <div className="download-content">
         <span className="eyebrow">05 / NEXT EXPEDITION</span>
         <GateMark />
-        <h2>次に扉を開くのは、あなた。</h2>
+        <h2>扉を確認。現地に向かってください</h2>
         <p>{download.message}</p>
         <span
           className="button button-pending"

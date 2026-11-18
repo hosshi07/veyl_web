@@ -3,8 +3,16 @@
     "slug": "website-preview",
     "date": "2026-11-16",
     "category": "INFORMATION",
-    "title": "VEYL 公式サイト、制作進行中。",
-    "body": "世界観や研究記録をお届けする公式サイトを制作しています。掲載内容・ビジュアルは開発中のものです。この記事は表示確認用のサンプルです。",
+    "title": "VEYL 公式サイト、制作進行中",
+    "body": "世界観や研究記録をお届けする公式サイトを制作しています。掲載内容・ビジュアルは開発中のものです。",
     "sample": true
+  },
+  {
+    "slug": "website-preview",
+    "date": "2026-11-17",
+    "category": "INFORMATION",
+    "title": "新たなアノモルフを発見",
+    "body": "新しいアノモルフを発見しました．d004は強い力を持っており侮ってはいけません．",
+    "sample": false
   }
 ]

@@ -5,7 +5,7 @@
     "image": "/images/r-001.png",
     "phrase": "忘れるべきでした",
     "teaser": "どうして，人は争うのか？",
-    "sample": true
+    "sample": false
   },
   {
     "id": "D-002",
@@ -13,7 +13,7 @@
     "image": "/images/d-002-cutout.png",
     "phrase": "約束は人の不幸から",
     "teaser": "いつまでも続いている",
-    "sample": true
+    "sample": false
   },
   {
     "id": "DEMO-03",
@@ -25,11 +25,11 @@
   },
   {
     "id": "D-004",
-    "name": "名称未設定 04",
-    "image": null,
-    "phrase": "ここにフレーズが表示されます。",
-    "teaser": "紹介文の表示確認用サンプルです。画像は素材が用意でき次第、差し替えられます。",
-    "sample": true
+    "name": "ヴァレイン",
+    "image": "/images/d004.png",
+    "phrase": "再び死の王がやってくる",
+    "teaser": "自身の力を巧みに扱う侮れない存在",
+    "sample": false
   },
   {
     "id": "N-005",

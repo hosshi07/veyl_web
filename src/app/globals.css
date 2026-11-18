@@ -754,7 +754,7 @@ summary {
   left: 18px;
 }
 .news-section {
-  padding-top: 0;
+  padding-top: 56px;
 }
 .news-list {
   border-top: 1px solid var(--line);
@@ -966,7 +966,7 @@ summary {
     font-size: 11px;
   }
   .news-section {
-    padding-top: 0;
+    padding-top: 40px;
   }
   .news-item summary {
     gap: 18px;
@@ -1218,7 +1218,7 @@ summary {
     margin-top: 24px;
   }
   .news-section {
-    padding-top: 0;
+    padding-top: 32px;
   }
   .news-item summary {
     display: grid;

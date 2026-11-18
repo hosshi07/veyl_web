@@ -30,14 +30,14 @@ export function Hero() {
           <span className="hero-title-line" />
         </h1>
         <p className="hero-tagline">
-          扉の向こうを、
+          扉の向こうを
           <br />
-          知ってはいけない。
+          知ってはいけない
         </p>
         <p className="hero-description">
-          未知を収容し、その力を手に入れろ。
+          未知を解析し、その力を手に入れろ
           <br />
-          不可解な存在と生きる、扉の先の物語。
+          不可解な存在とともに扉の謎に迫る
         </p>
         <a href="#world" className="button button-primary">
           この世界に触れる <Arrow />
@@ -56,7 +56,7 @@ export function Hero() {
           <span className="scroll-line" />
           SCROLL TO EXPLORE<span>↓</span>
         </a>
-        <p>その扉は、まだ開かれていない。</p>
+        <p>その扉は、まだ開かれていない</p>
         <span className="mono">01 — 06</span>
       </div>
     </section>

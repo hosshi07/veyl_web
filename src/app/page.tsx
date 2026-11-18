@@ -20,10 +20,10 @@ export default function Home() {
           RESTRICTED ACCESS <span aria-hidden="true">↗</span>
         </span>
       </div>
+      <NewsSection />
       <WorldSection />
       <ArchiveSection />
       <ArcSection />
-      <NewsSection />
       <DownloadSection />
     </main>
   );

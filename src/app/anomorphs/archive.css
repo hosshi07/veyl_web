@@ -232,18 +232,6 @@
   position: absolute;
   inset: 0;
   background: linear-gradient(117deg, #ebe7d9, #d7d3c3 60%, #c8c6b5);
-  clip-path: polygon(
-    0 0,
-    calc(100% - var(--tab-width)) 0,
-    calc(100% - var(--tab-width)) 13%,
-    calc(100% - 5px) 13%,
-    100% 14%,
-    100% 33%,
-    calc(100% - 5px) 34%,
-    calc(100% - var(--tab-width)) 34%,
-    calc(100% - var(--tab-width)) 100%,
-    0 100%
-  );
 }
 .file-shape:after {
   content: "";
@@ -471,24 +459,16 @@
 .file-tab {
   position: absolute;
   top: 13%;
-  right: 0;
+  right: 8px;
   height: 21%;
-  width: var(--tab-width);
+  width: calc(var(--tab-width) - 16px);
   display: flex;
   justify-content: center;
   align-items: center;
-  background: #b7bda7;
+  background: #b7bda740;
   color: #3f4b34;
   border: 0;
   border-left: 1px solid #8c967340;
-  clip-path: polygon(
-    0 0,
-    calc(100% - 5px) 0,
-    100% 5%,
-    100% 95%,
-    calc(100% - 5px) 100%,
-    0 100%
-  );
   cursor: pointer;
   z-index: 3;
   transition:
